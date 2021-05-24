@@ -1,21 +1,26 @@
+## QueryOrmServer - 语义化查询服务端
 
-# 引入composer
+# 简介
 
-不用再向后端催接口、求文档。数据和结构完全定制，要啥有啥。看请求知结果，所求即所得。可一次获取任何数据、任何结构。能去除重复数据，节省流量提高速度。
+再也不用向后端催接口、求文档了。数据和结构完全定制，要啥有啥。看请求知结果，所求即所得。可一次获取任何数据、任何结构。能去除重复数据，节省流量提高速度。
+
+
+注意：本组件需配合前端构建类[QueryOrmBuilder]使用 [源码地址](https://github.com/mdao-work/query-orm-builder)
+
 
 # 使用案例
 
 ```shell script
-composer require mdao/query_orm
+composer require mdao/query-orm-server
 ```
 
-### thinkPHP 使用
+### ThinkPHP 使用（本示例基于thinkphp5.0）
 ```php
 
 use mdao\QueryOrm\Servers\QueryServer;
 use mdao\QueryOrm\Entities\OrmEntity;
 
- $queryServer = new QueryServer(OrmEntity::createEntity(request()->get()));
+$queryServer = new QueryServer(OrmEntity::createEntity(request()->get()));
 
 //获取where
 $queryServer->getQueryFilter();
