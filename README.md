@@ -17,19 +17,55 @@ composer require mdao/query-orm-server
 ### ThinkPHP 使用（本示例基于thinkphp5.0）
 ```php
 
-use mdao\QueryOrm\Servers\QueryServer;
-use mdao\QueryOrm\Entities\OrmEntity;
+use mdao\QueryOrmServer\Servers\QueryServer;
+use mdao\QueryOrmServer\Entities\OrmEntity;
 
 $queryServer = new QueryServer(OrmEntity::createEntity(request()->get()));
 
 //获取where
-$queryServer->getQueryFilter();
+$queryServer->getQueryWheres();
+//将where转换为数组
+$queryServer->getQueryWheres()->toArray();
+//将where转换为json
+$queryServer->getQueryWheres()->toJson();
+//获取where数量
+count($queryServer->getQueryWheres());
+//获取字段操作符
+$queryServer->getQueryWheres()['id']->getOperator();
+//获取值
+$queryServer->getQueryWheres()['id']->getValue();
+
+//获取whereOr
+$queryServer->getQueryWhereOrs();
+//将whereOr转换为数组
+$queryServer->getQueryWhereOrs()->toArray();
+//将whereOr转换为json
+$queryServer->getQueryWhereOrs()->toJson();
+//获取whereOr数量
+count($queryServer->getQueryWhereOrs());
+//获取字段操作符
+$queryServer->getQueryWhereOrs()['id']->getOperator();
+//获取值
+$queryServer->getQueryWhereOrs()['id']->getValue();
+
+
+
 //获取select
 $queryServer->getQuerySelect();
+//查询的字段数组
+$queryServer->getQuerySelect()->toArray();
+
+
 //获取OrderBy
 $queryServer->getQueryOrderBy();
+
 //获取Pagination
 $queryServer->getQueryPagination();
+
+//获取当前第几页
+$queryServer->getQueryPagination()->getPage();
+//获取每页多少条
+$queryServer->getQueryPagination()->getPageSize();
 
 ```
 

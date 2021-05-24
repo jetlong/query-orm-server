@@ -1,7 +1,7 @@
 <?php
 
 
-namespace mdao\QueryOrm\Contracts;
+namespace mdao\QueryOrmServer\Contracts;
 
 interface OrmEntityContract
 {
@@ -21,6 +21,16 @@ interface OrmEntityContract
      * @param array $filter
      */
     public function setFilter(array $filter): void;
+
+    /**
+     * @return array
+     */
+    public function getWhereOr(): array;
+
+    /**
+     * @param array $filter
+     */
+    public function setWhereOr(array $filter): void;
 
     /**
      * @return string

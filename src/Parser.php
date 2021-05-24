@@ -1,16 +1,17 @@
 <?php
 
 
-namespace mdao\QueryOrm;
+namespace mdao\QueryOrmServer;
 
-use mdao\QueryOrm\Exception\ParserException;
-use mdao\QueryOrm\Entities\ParserEntity;
-use mdao\QueryOrm\Contracts\ParserEntityContract;
+use mdao\QueryOrmServer\Exception\ParserException;
+use mdao\QueryOrmServer\Entities\ParserEntity;
+use mdao\QueryOrmServer\Contracts\ParserEntityContract;
 
 class Parser
 {
 
     protected $filter = 'filter';
+    protected $whereOr = 'where_or';
     protected $orderBy = 'order_by';
     protected $sortedBy = 'sorted_by';
     protected $page = 'page';
@@ -20,6 +21,7 @@ class Parser
 
     /**
      * @param ParserEntityContract $parserEntityContract
+     * @param $param
      * @return ParserEntity
      * @throws ParserException
      */
@@ -29,8 +31,11 @@ class Parser
         $params = $parserEntityContract->apply($param);
 
         $filter = $params[$this->filter] ?? [];
-
         $filter = $this->where($filter);
+
+        $whereOr = $params[$this->whereOr] ?? [];
+        $whereOr = $this->where($whereOr);
+
         $orderBy = $params[$this->orderBy] ?? 'id';
         $sortedBy = $params[$this->sortedBy] ?? 'desc';
         $order = [];
@@ -47,7 +52,7 @@ class Parser
         $select = trim($select, ',');
         $select = $this->select($select);
 
-        return new ParserEntity($filter, $select, $order, $pagination);
+        return new ParserEntity($filter, $select, $order, $pagination, $whereOr);
     }
 
     /**
